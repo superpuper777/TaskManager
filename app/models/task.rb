@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
   belongs_to :project
-  enum status: { todo: 2, toreview: 1, completed: 0 }
-  enum priority { regular: 1, high: 0 }
+  enum status: { todo: 3, toreview: 2, completed: 1 }
+  enum priority: { regular: 2, high: 1 }
 end

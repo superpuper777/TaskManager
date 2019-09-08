@@ -135,6 +135,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    rb-readline (0.5.5)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.3)
+  rb-readline (~> 0.5.5)
   rspec-rails (~> 3.8.2)
   sass-rails (~> 5.0)
   spring
