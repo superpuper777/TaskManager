@@ -23,8 +23,8 @@ module TaskManager
             params do
               requires :task, type: Hash do
                 requires :name, type: String, desc: 'New name.'
-                requires :status, type: Integer, desc: 'Status of task.'
-                requires :priority, type: Integer, desc: 'Priority of task.'
+                requires :status, type: String, desc: 'Status of task.'
+                requires :priority, type: String, desc: 'Priority of task.'
               end
             end
             post do
@@ -34,6 +34,18 @@ module TaskManager
             end
           end
 
+        end
+
+        desc 'Create a new project.'
+        params do
+          # requires :project, type: Hash do
+            requires :name, type: String, desc: 'Project name. '
+          end
+        # end
+        post do
+          # @project = Project.create!(params[:project])
+          Project.create!({ name: params[:name] })
+          # present projects, with: TaskManager::Entities::Index
         end
 
       end
