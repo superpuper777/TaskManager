@@ -12,10 +12,11 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
-
+# GrapeDeviseTokenAuth.setup!
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
 
 module TaskManager
   class Application < Rails::Application
@@ -26,7 +27,7 @@ module TaskManager
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    
+
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
