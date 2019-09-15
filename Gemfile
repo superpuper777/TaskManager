@@ -10,6 +10,7 @@ gem 'grape-entity', '~> 0.7.1'
 gem 'grape_on_rails_routes', '~> 0.3.2'
 gem 'grape_devise_token_auth', '~> 0.1.4'
 gem 'devise_token_auth', '~>1.1.0'
+gem 'pry'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record

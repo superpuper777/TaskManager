@@ -5,6 +5,23 @@ module TaskManager
       format :json
       prefix :api
 
+      helpers do
+        def current_user
+          token = ApiKey.where(access_token: params[:token]).first
+          if token && !token.expired?
+            @current_user = User.find(token.user_id)
+            binding.pry
+          else
+            false
+          end
+        end
+
+        def authenticate!
+          error!('401 Unauthorized', 401) unless current_user
+        end
+
+      end
+
       resource :users do
         desc 'Return list of users. '
         get do
@@ -15,6 +32,7 @@ module TaskManager
         desc 'Return a specific user'
         route_param :id do
           get do
+
             user = User.find(params[:id])
             present user #, with: TaskManager::Entities::Project
           end
@@ -22,9 +40,8 @@ module TaskManager
           resource :projects do
             desc 'Return list of projects'
             get do
-              # current_user!
-              # projects = current_user.projects
-              projects = Project.all
+              authenticate!
+              projects = @current_user.projects
               present projects, with: TaskManager::Entities::Index
             end
           end

@@ -7,6 +7,12 @@
 end
 user_ids = User.ids
 
+30.times do
+  ApiKey.create!(
+    user_id: user_ids.sample
+  )
+end
+
 45.times do
   Project.create!(
     user_id: user_ids.sample,
