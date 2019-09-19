@@ -1,46 +1,32 @@
+require 'pry'
 module TaskManager
   module V1
     class Projects < Grape::API
-      version 'v1', using: :path
-      format :json
-      prefix :api
+      include TaskManager::V1::Defaults
 
       helpers do
-        def current_user
-          token = ApiKey.where(access_token: params[:token]).first
-          if token && !token.expired?
-            @current_user = User.find(token.user_id)
-            binding.pry
-          else
-            false
-          end
-        end
-
         def authenticate!
           error!('401 Unauthorized', 401) unless current_user
         end
 
+        def current_user
+          # token = ApiKey.where(access_token: params[:token]).first
+          # if token && !token.expired?
+          #   @current_user = User.find(token.user_id)
+          # else
+          #   false
+          # end
+        end
       end
 
-      resource :users do
-        desc 'Return list of users. '
-        get do
-          users = User.all
-          present users
-        end
-
-        desc 'Return a specific user'
-        route_param :id do
-          get do
-
-            user = User.find(params[:id])
-            present user #, with: TaskManager::Entities::Project
-          end
 
           resource :projects do
             desc 'Return list of projects'
+            # params do
+            #   requires :token, type: String, desc: "Access token."
+            # end
             get do
-              # authenticate!
+              authenticate!
               # projects = @current_user.projects
               projects = Project.all
               present projects, with: TaskManager::Entities::Index
@@ -55,6 +41,7 @@ module TaskManager
             end
 
             desc 'Create a new project'
+
             params do
               requires :name, type: String
             end
@@ -96,9 +83,6 @@ module TaskManager
           end
 
         end
-end
-
-      end
 
     end
   end
