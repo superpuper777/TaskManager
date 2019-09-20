@@ -1,7 +1,9 @@
 module TaskManager
   module V1
     class Users < Grape::API
-      include TaskManager::V1::Defaults
+      version 'v1', using: :path
+      format :json
+      prefix :api
 
       resource :users do
         desc 'Return list of users. '
@@ -14,7 +16,7 @@ module TaskManager
         route_param :id do
           get do
             user = User.find(params[:id])
-            present user #, with: TaskManager::Entities::Project
+            present user
           end
         end
 

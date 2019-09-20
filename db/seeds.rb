@@ -26,6 +26,7 @@ project_ids = Project.ids
     project_id: project_ids.sample,
     name: Faker::Hacker.ingverb,
     status: Faker::Number.between(from: 1, to: 3),
-    priority: Faker::Number.between(from: 1, to: 2)
+    priority: Faker::Number.between(from: 1, to: 2),
+    dead_line: Faker::Date.forward(days: 23)
   )
 end

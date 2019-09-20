@@ -6,7 +6,6 @@ module TaskManager
       prefix :api
 
       resource :tasks do
-
         desc 'Create a task.'
         params do
             requires :name, type: String, desc: 'New name.'

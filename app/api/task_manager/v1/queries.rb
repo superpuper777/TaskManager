@@ -1,12 +1,14 @@
 module TaskManager
   module V1
     class Queries < Grape::API
-      include TaskManager::V1::Defaults
+      version 'v1', using: :path
+      format :json
+      prefix :api
 
       resource :queries do
         desc 'Return all statuses, not repeating, alphabetically ordered. '
         get '/statuses' do
-          Task.select(:status).distinct #.order('status ASC')
+          Task.select(:status).distinct
         end
 
         desc 'Return the count of all tasks in each project, order by tasks count descending. '
@@ -16,7 +18,6 @@ module TaskManager
 
         desc 'Return the count of all tasks in each project, order by projects names. '
         get '/names' do
-          # Task.joins(:project).select(:id , :name).order(name: :asc)
           Project.joins(:tasks).select(:id, :name).order(name: :asc)
         end
 

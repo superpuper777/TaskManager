@@ -1,21 +1,22 @@
-require 'pry'
 module TaskManager
   module V1
     class Projects < Grape::API
-      include TaskManager::V1::Defaults
-
+      version 'v1', using: :path
+      format :json
+      prefix :api
+      
       helpers do
         def authenticate!
           error!('401 Unauthorized', 401) unless current_user
         end
 
         def current_user
-          # token = ApiKey.where(access_token: params[:token]).first
-          # if token && !token.expired?
-          #   @current_user = User.find(token.user_id)
-          # else
-          #   false
-          # end
+          token = ApiKey.where(access_token: params[:token]).first
+          if token && !token.expired?
+            @current_user = User.find(token.user_id)
+          else
+            false
+          end
         end
       end
 
@@ -26,7 +27,7 @@ module TaskManager
             #   requires :token, type: String, desc: "Access token."
             # end
             get do
-              authenticate!
+              # authenticate!
               # projects = @current_user.projects
               projects = Project.all
               present projects, with: TaskManager::Entities::Index
@@ -73,6 +74,7 @@ module TaskManager
                 requires :name, type: String, desc: 'New name.'
                 requires :status, type: String, desc: 'Status of task.'
                 requires :priority, type: String, desc: 'Priority of task.'
+                requires :dead_line, type: DateTime, desc: 'Dead line. '
               end
             end
             post do

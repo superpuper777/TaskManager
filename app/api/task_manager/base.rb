@@ -4,6 +4,6 @@ module TaskManager
     mount TaskManager::V1::Projects
     mount TaskManager::V1::Tasks
     mount TaskManager::V1::Queries
-    mount TaskManager::V1::Defaults
+    mount TaskManager::V1::Auth
   end
 end
