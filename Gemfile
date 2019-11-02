@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.0'
-gem 'devise', '~> 4.6.2'
+gem 'devise', '~> 4.7.1'
 gem 'faker', '~> 2.2.1'
 gem 'rb-readline', '~> 0.5.5'
 gem 'grape', '~> 1.2.4'
